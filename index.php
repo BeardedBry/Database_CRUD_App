@@ -14,6 +14,9 @@ try {
 <html>
 <head>
     <title>Database Practice</title>
+    <link rel="stylesheet"
+    type="text/css"
+    href="style.css">
 </head>
 <body>
 

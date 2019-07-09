@@ -1,8 +1,10 @@
-/*jshint esversion: 8 */
+/*jshint esversion: 6 */
 
 const display = document.querySelector('.display-results');
+const db_div = display.querySelector('#databases');
 const db_buttons = display.querySelector('.display-db');
-
+const table_div = display.querySelector('#tables');
+let currentDB;
 
 display.addEventListener('click', function (button) {
 
@@ -12,13 +14,13 @@ display.addEventListener('click', function (button) {
     // Database buttons
     if (button.target.parentElement == db_buttons) {
         console.log('db buttons');
-        let table_list = requestTables( button.target.textContent.trim() );
+        currentDB = button.target.textContent.trim();
+        let table_list = requestTables( currentDB );
         table_list.then((res)=>{
             console.log(res);
-            //populateTables(res);
+            populateTables(res);
         });
-        // show_tables(table_list);
-
+       
     }
 });
 
@@ -47,6 +49,20 @@ function requestTables(name) {
 // }
 
 
-function populateTables(){
+function populateTables(data){
+
+    db_div.classList.add('hidden');
+
+    let ul = document.createElement('ul');
     
+    table_div.appendChild(ul);
+
+    for(let i = 0; i < data.length; i++){
+        let li = document.createElement('li');
+        let but = document.createElement('button');
+        but.textContent = data[i][`Tables_in_${currentDB}`];
+        li.appendChild(but);
+        ul.appendChild(li);
+    }
+
 }
