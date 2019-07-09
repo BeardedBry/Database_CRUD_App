@@ -7,7 +7,13 @@
             <?php
             foreach ($data as $d){
                 ?>
-                <button class="db">
+                <button class="db" 
+                <?php if($d['Database'] !== 'sakila'){ ?>
+                    disabled
+                <?php } ?>
+                >
+                
+                
                 <?php
                 echo $d['Database'];
                 ?>
