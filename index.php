@@ -20,10 +20,13 @@ try {
     <h1>Database CRUD Operations App</h1>
 
     <div class="display-results">
-
         <!-- Display Databases -->
-        <?php include 'display_db.php'; ?>
-
+        <div id="databases">
+            <?php include 'display_db.php'; ?>
+        </div>
+        <!-- Display Tables -->
+        <div id="tables">
+        </div>
     </div>
 
     <!-- JavaScript -->

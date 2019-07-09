@@ -2,7 +2,6 @@
  <?php 
         if(isset($data)){
             ?>
-            <div id="databases">
             <h2>Select a Database</h2>
             <form class="display-db">
             <?php
@@ -17,7 +16,5 @@
                 //var_dump($d);
             }
         } ?>
-        </form>
-    </div>
         <?php
 ?>
