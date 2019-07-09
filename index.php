@@ -1,0 +1,33 @@
+<?php
+require_once('db.php');
+
+try {
+    $show = $db->prepare('SHOW DATABASES');
+    $show->execute();
+    $data = $show->fetchAll(PDO::FETCH_ASSOC);
+}catch(Exception $e){
+    echo $e->getMessage();
+}
+
+?>
+
+<html>
+<head>
+    <title>Database Practice</title>
+</head>
+<body>
+
+    <h1>Database CRUD Operations App</h1>
+
+    <div class="display-results">
+
+        <!-- Display Databases -->
+        <?php include 'display_db.php'; ?>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js" type="text/JavaScript"></script>
+</body>
+
+</html>
