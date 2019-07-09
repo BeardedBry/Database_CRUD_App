@@ -4,7 +4,7 @@ const display = document.querySelector('.display-results');
 const db_div = display.querySelector('#databases');
 const db_buttons = display.querySelector('.display-db');
 const table_div = display.querySelector('#tables');
-let currentDB;
+let currentDB = 'sakila';
 
 display.addEventListener('click', function (button) {
 
@@ -14,8 +14,8 @@ display.addEventListener('click', function (button) {
     // Database buttons
     if (button.target.parentElement == db_buttons) {
         console.log('db buttons');
-        currentDB = button.target.textContent.trim();
-        let table_list = requestTables( currentDB );
+        //currentDB = button.target.textContent.trim();
+        let table_list = request('db','sakila');
         table_list.then((res)=>{
             console.log(res);
             populateTables(res);
@@ -24,9 +24,9 @@ display.addEventListener('click', function (button) {
     }
 });
 
-function requestTables(name) {
+function request(type, name) {
 
-    var tables = fetch(`model.php?db=${name}`)
+    var tables = fetch(`model.php?${type}=${name}`)
         .then(function (response) {
             return response.json();
         })
