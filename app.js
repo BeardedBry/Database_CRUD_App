@@ -34,22 +34,22 @@ display.addEventListener('click', function (button) {
         //currentDB = button.target.textContent.trim()
         console.log('db buttons');
         //currentDB = button.target.textContent.trim();
-        let table_list = request('db','sakila');
-        table_list.then((res)=>{
+        let table_list = request('db', 'sakila');
+        table_list.then((res) => {
             console.log(res);
             populateTables(res);
-        }).catch((exc)=>{
-           console.log('error'); 
+        }).catch((exc) => {
+            console.log('error');
         });
     }
-    else if (table_div.children){
+    else if (table_div.children) {
         console.log('table button');
-        let colum_list = request('table',currentVal);
-        table_list.then((res)=>{
+        let colum_list = request('table', currentVal);
+        table_list.then((res) => {
             console.log(res);
             populateTables(res);
-        }).catch((exc)=>{
-           console.log('error'); 
+        }).catch((exc) => {
+            console.log('error');
         });
     }
 
@@ -72,7 +72,7 @@ function request(type, val) {
 
 
 
-function populateTables(data){
+function populateTables(data) {
 
     db_div.classList.add('hidden');
     currentView = 'table';
@@ -80,7 +80,7 @@ function populateTables(data){
     let ul = document.createElement('ul');
     table_div.appendChild(ul);
 
-    for(let i = 0; i < data.length; i++){
+    for (let i = 0; i < data.length; i++) {
         let li = document.createElement('li');
         let but = document.createElement('button');
         but.textContent = data[i][`Tables_in_${currentDB}`];
@@ -101,12 +101,27 @@ function populateTables(data){
 
 //helper functions
 
-HTMLElement.prototype.hasChild = function(child){
+HTMLElement.prototype.hasChild = function (child) {
     //console.log(this.parentElement);
-    let findChild = function(child){
-        for(let i = this.children[0].length; i > 0; i--){
-            console.log(this.childre[i]);
+    let el = this;
+    let flag = false;
+
+    let findChild = function (el, child) {
+        //console.log(el);
+        if (el.childNodes.length > 0) {
+            for (let i = 0; i < el.childNodes.length; i++) {
+                //console.log(el.childNodes[i]);
+                if(el.childNodes[i] == child){
+                    console.log('found it ' + el.childNodes[i]);
+                    flag = true;
+                    return;
+                }else{
+                    findChild(el.childNodes[i]);
+                }
+            }
         }
-     }
-     findChild();
-}
+    };
+
+    findChild(el);
+    return flag;
+};
