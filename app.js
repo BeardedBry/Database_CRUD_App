@@ -16,8 +16,11 @@ const display = document.querySelector('.display-results');
 const db_div = display.querySelector('#databases');
 const db_buttons = display.querySelector('.display-db');
 const table_div = display.querySelector('#tables');
+const column_div = display.querySelector('#columns');
+
 
 let currentDB = 'sakila';
+let currentTable = null;
 let currentVal = null;
 let currentView = 'default';
 
@@ -42,24 +45,36 @@ display.addEventListener('click', function (button) {
             console.log('error');
         });
     }
-    else if (table_div.children) {
-        console.log('table button');
-        let column_list = request('table', currentVal);
+    // else if (table_div.children) {
+    //     console.log('table button');
+    //     let column_list = request('table', currentVal);
+    //     column_list.then((res) => {
+    //         console.log(res);
+    //         populateTables(res);
+    //     }).catch((exc) => {
+    //         console.error('error fetching from DB');
+    //     });
+    // }
+});
+
+table_div.addEventListener('click', function(button){
+    button.preventDefault();
+
+        const currentTable = button.target.textContent.trim();
+        console.log(currentTable);
+
+        let column_list = request('table', currentTable);
         column_list.then((res) => {
             console.log(res);
-            populateTables(res);
+            populateColumns(res);
         }).catch((exc) => {
-            console.error('error fetching from DB');
+            console.log('error' + exc);
         });
-    }
-
-
 });
 
 
 
 function request(type, val) {
-
     var tables = fetch(`model.php?${type}=${val}`)
         .then(function (response) {
             return response.json();
@@ -74,9 +89,8 @@ function request(type, val) {
 
 function populateTables(data) {
 
-    db_div.classList.add('hidden');
+    //db_div.classList.add('hidden');
     currentView = 'table';
-
     let ul = document.createElement('ul');
     table_div.appendChild(ul);
 
@@ -90,6 +104,22 @@ function populateTables(data) {
 
 }
 
+function populateColumns(data) {
+
+    //db_div.classList.add('hidden');
+    currentView = 'columns';
+    let ul = document.createElement('ul');
+    column_div.appendChild(ul);
+
+    for (let i = 0; i < data.length; i++) {
+        let li = document.createElement('li');
+        let inp = document.createElement('input');
+        inp.value = data[i].title;
+        li.appendChild(inp);
+        ul.appendChild(li);
+    }
+
+}
 
 
 // Admin Controls

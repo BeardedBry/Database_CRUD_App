@@ -54,6 +54,8 @@ try {
         <!-- Display Tables -->
         <div id="tables">
         </div>
+        <div id="columns">
+        </div>
     </div>
 
     <!-- JavaScript -->

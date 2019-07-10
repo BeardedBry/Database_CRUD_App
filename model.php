@@ -14,6 +14,19 @@ if (!empty($_GET['db'])) {
     }
 }
 
+if (!empty($_GET["table"])) {
+    try {
+        $table = strval($_GET['table']);
+        //$table = "`".str_replace("`","``",$table)."`";
+        $table_choice = $db->prepare("SELECT * FROM `" . $table . "` ");
+        //$table_choice->bindParam('?', $table, PDO::PARAM_STR);
+        $table_choice->execute();
+        $show = $table_choice->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($show);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
 
 // if (!empty($_GET['db'])) {
 
