@@ -5,12 +5,9 @@ const admin_update_div = document.querySelector('#admin-update');
 const admin_update_submit = admin_update_div.querySelector('button[type="submit"]');
 admin_update_submit.disabled = true;
 
-
 const admin_create_div = document.querySelector('#admin-create');
 const admin_create_submit = admin_create_div.querySelector('button[type="submit"]');
 admin_create_submit.disabled = true;
-
-
 
 const display = document.querySelector('.display-results');
 const db_div = display.querySelector('#databases');
@@ -121,6 +118,10 @@ function populateColumns(data) {
 
 }
 
+
+function populateRows(row){
+
+}
 
 // Admin Controls
 
