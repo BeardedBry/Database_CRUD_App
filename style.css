@@ -2,3 +2,10 @@
     display: none;
 }
 
+.searched{
+    color: red;
+}
+
+.found{
+    color: blue;
+}

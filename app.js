@@ -44,12 +44,12 @@ display.addEventListener('click', function (button) {
     }
     else if (table_div.children) {
         console.log('table button');
-        let colum_list = request('table', currentVal);
-        table_list.then((res) => {
+        let column_list = request('table', currentVal);
+        column_list.then((res) => {
             console.log(res);
             populateTables(res);
         }).catch((exc) => {
-            console.log('error');
+            console.error('error fetching from DB');
         });
     }
 
@@ -100,28 +100,59 @@ function populateTables(data) {
 
 
 //helper functions
-
-HTMLElement.prototype.hasChild = function (child) {
+HTMLElement.prototype.hasChild = function (find) {
     //console.log(this.parentElement);
     let el = this;
-    let flag = false;
+    const child = find;
 
     let findChild = function (el, child) {
         //console.log(el);
-        if (el.childNodes.length > 0) {
-            for (let i = 0; i < el.childNodes.length; i++) {
-                //console.log(el.childNodes[i]);
-                if(el.childNodes[i] == child){
-                    console.log('found it ' + el.childNodes[i]);
-                    flag = true;
-                    return;
+        if (el.children.length > 0) {
+            for (let i = 0; i < el.children.length; i++) {
+                console.log('searching: ' + el.children[i] + " for: " + child);
+                if(el.children[i] === child){
+                    console.log('found it ' + el.children[i]);
+                    return el.children[i].classList.add('found');
                 }else{
-                    findChild(el.childNodes[i]);
+                    el.children[i].classList.add('searched');
+                    findChild(el.children[i], child);
                 }
             }
         }
+
     };
 
-    findChild(el);
-    return flag;
+     findChild(el, child);
+
 };
+
+
+
+
+
+// WIP
+// HTMLElement.prototype.hasChild = function (find) {
+//     //console.log(this.parentElement);
+//     let el = this;
+//     const child = find;
+
+//     let findChild = function (el, child) {
+//         //console.log(el);
+//         if (el.childNodes.length > 0) {
+//             for (let i = 0; i < el.childNodes.length; i++) {
+//                 console.log('searching: ' + el.childNodes[i] + " for: " + child);
+//                 if(el.childNodes[i] === child){
+//                     console.log('found it ' + el.childNodes[i]);
+//                     return el.childNodes[i].classList.add('found');
+//                 }else{
+//                     //el.childNodes[i].classList.add('searched');
+//                     findChild(el.childNodes[i], child);
+//                 }
+//             }
+//         }
+
+//     };
+
+//      findChild(el, child);
+
+// };
